@@ -96,10 +96,13 @@ class LinkController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'descricao'=>'required|unique:users'
-        ]);
         $link = Link::find($id);
+        if($link->descricao != $request->input('descricao')){
+
+            $request->validate([
+                'descricao'=>'required|unique:links'
+                ]);
+        }
         if(isset($link)){
             $link->descricao = $request->input('descricao');
             $link->link = $request->input('link');

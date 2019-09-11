@@ -54,9 +54,11 @@
                 <div class='col-2  mt-4'>
                     <span  class="">
                         <p class="h5"><strong>Permissões</strong></p>
+                        <button class="btn btn-primary btn-sm" type="button" onclick="marcarDesmarcar();">Marcar todos</button>
+
                         @foreach($links as $link)
                             <div class="form-check">
-                                <input class="form-check-input" onclick="handleClick(this);" type="checkbox" name="{{$link->descricao}}" value="{{$link->id}}" id="ck_{{$link->id}}">
+                                <input class="form-check-input marcar" onclick="handleClick(this);" type="checkbox" name="{{$link->descricao}}" value="{{$link->id}}" id="ck_{{$link->id}}">
                                 <label class="form-check-label" for="ck_{{$link->id}}">
                                    {{$link->descricao}}
                                 </label>
@@ -84,6 +86,21 @@
     </div>
 @endsection
 <script>
+
+        function marcarDesmarcar(){
+                $(".marcar").each(
+                    function() {
+                        
+                        if ($(this).prop("checked")) {
+                            $(this).prop("checked", false);
+                            handleClick(this);
+                        } else {
+                            $(this).prop("checked", true);
+                            handleClick(this);
+                        }
+                    }
+                );
+        }
 
         function handleClick(cb) {
             if(cb.checked){

@@ -28,17 +28,20 @@
                             <td>{{$user->email}}</td>
                             <td>{{$user->perfil}}</td>
                             <td>
-                                <a href="/users/{{$user->id}}" class='btn btn-sm btn-primary'>Editar</a>
-                                <form action="/users/{{$user->id}}" method='POST'>
-                                            @csrf
-                                            {{method_field('patch')}}
-                                            <button type="submit" class="btn btn-sm btn-success">Redefinir Senha</button>
-                                        </form>
-                                <form action="/users/{{$user->id}}" method='POST'>
-                                            @csrf
-                                            {{method_field('DELETE')}}
-                                            <button type="submit" class="btn btn-sm btn-danger">Excluir</button>
-                                        </form>
+                                @if((Auth::user()->perfil == 'admin' && $user->perfil !='super user') 
+                                || (Auth::user()->perfil == 'super user') )
+                                    <a href="/users/{{$user->id}}" class='btn btn-sm btn-primary'>Editar</a>
+                                    <form action="/users/{{$user->id}}" method='POST'>
+                                        @csrf
+                                        {{method_field('patch')}}
+                                        <button type="submit" class="btn btn-sm btn-success">Redefinir Senha</button>
+                                    </form>
+                                    <form action="/users/{{$user->id}}" method='POST'>
+                                        @csrf
+                                        {{method_field('DELETE')}}
+                                        <button type="submit" class="btn btn-sm btn-danger">Excluir</button>
+                                    </form>
+                                @endif
                             </td>
                         </tr>
                         @endforeach

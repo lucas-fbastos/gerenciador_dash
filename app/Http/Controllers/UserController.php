@@ -59,6 +59,7 @@ class UserController extends Controller
         $user->name = request()->input('nome');
         $user->email = request()->input('email');
         $user->reset = 'sim';
+        $user->perfil = request()->input('perfil');
         //gerar senha temporaria
         $token = md5(uniqid(""));
         $senha = substr($token, 0, 6);
@@ -121,10 +122,14 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'email'=>'required|unique:users'
-        ]);
         $user =  User::find($id);
+        if($user->email != $request->input('email')){
+
+            $request->validate([
+                'email'=>'required|unique:users'
+                ]);
+        }
+
         if(isset($user)){
             $user->name = $request->input('name');
             $user->email = $request->input('email');

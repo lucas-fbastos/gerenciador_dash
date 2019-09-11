@@ -47,7 +47,7 @@
                             </li>
                            
                         @else
-                            @if(Auth::user()->perfil == 'admin' || Auth::user()->perfil == 'super user')
+                            @if(Auth::user()->perfil == 'super user')
                                 <li class="nav-item">
                                     <a class="nav-link text-primary" href="{{ route('users') }}">{{ __(' Gerenciar Usuários') }}</a>
                                 </li>
